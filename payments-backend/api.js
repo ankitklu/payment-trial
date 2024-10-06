@@ -5,7 +5,12 @@ const app = express();
 const { PORT } = process.env;
 const ShortId= require("short-unique-id");
 const uid= new ShortId({length:10});
+const cors= require("cors");
 
+//we are allowing any user to access your server as cross origin
+app.use(cors());
+
+app.use(express.json());
 
 const Razorpay= require("razorpay");
 const{
@@ -50,6 +55,12 @@ app.post("/checkout",async (req, res)=>{
             message: message.err
         })
     }
+})
+
+app.post("/verify", function(){
+    //that payment os done -> razorpay
+    // update the status of the user -> order, premium
+
 })
 
 // Use PORT from environment variables or default to 3400
